@@ -124,7 +124,7 @@ func writeCompiledRelease(m ReleaseManifest, outputDirectory, stemcellFilenameSu
 		if err != nil {
 			return false, err
 		}
-		h.Name = fullPath
+		h.Name = strings.TrimPrefix(strings.TrimPrefix(path.Clean(fullPath), "./"), "/")
 		if err := tw.WriteHeader(h); err != nil {
 			return false, err
 		}
