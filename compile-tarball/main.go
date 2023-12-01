@@ -124,6 +124,7 @@ func writeCompiledRelease(m ReleaseManifest, outputDirectory, stemcellFilenameSu
 		if err != nil {
 			return false, err
 		}
+		h.Name = fullPath
 		if err := tw.WriteHeader(h); err != nil {
 			return false, err
 		}
@@ -381,7 +382,7 @@ func readTarballFiles(releaseFilePath, pattern string, file func(fullName string
 		if pattern != "" {
 			if matches, err := path.Match(pattern, h.Name); err != nil {
 				return found, err
-			} else if !matches || h.Typeflag != tar.TypeReg || info.IsDir() {
+			} else if !matches || h.Typeflag != tar.TypeReg {
 				continue
 			}
 		}
